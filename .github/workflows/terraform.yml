@@ -1,0 +1,44 @@
+name: 'Terraform'
+
+on:
+  push:
+    branches:
+    - "development"
+    paths:
+     - 'infrastructure/**'
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.DEV_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ secrets.DEV_AWS_DEFAULT_REGION }}
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        repository: 'RajatAnand14/ProtivitiDevOps'       
+        ref: 'development'
+        
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Create Infrastructure
+      working-directory: ./infrastructure
+      run: |
+        terraform init -backend-config="bucket=${{ secrets.DEV_S3BUCKET_NAME }}" -backend-config="region=${{ secrets.DEV_AWS_DEFAULT_REGION }}" -backend-config="dynamodb_table=${{ secrets.DEV_DYNAMOTABLE_NAME }}"
+        terraform validate
+        terraform plan -out "devinfra.tfplan"
+        aws s3 cp devinfra.tfplan s3://${{ secrets.DEV_S3BUCKET_NAME }}/plans/devinfra.tfplan
+        aws s3 cp s3://${{ secrets.DEV_S3BUCKET_NAME }}/plans/devinfra.tfplan devinfra.tfplan
+        terraform apply "devinfra.tfplan"
+        terraform destroy -auto-approve
