@@ -127,6 +127,18 @@ variable "azure_winvm_server_osdisktype" {
   default = "StandardSSD_LRS"
 }
 
+variable "azure_win_admin_username" {
+  description = "Azure Windows Admin User Name"
+  type    = string
+  default = "tfadmin"
+}
+
+variable "azure_win_admin_password" {
+  description = "Azure Windows Admin Password"
+  type    = string
+  default = "Password_123"
+}
+
 ### Linux Input variables ######
 variable "azure_linux_nic" {
   description = "Azure Network Interface"

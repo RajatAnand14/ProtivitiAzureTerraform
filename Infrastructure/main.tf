@@ -128,8 +128,8 @@ resource "azurerm_virtual_machine" "azurewinvm" {
   }
   os_profile {
     computer_name  = var.azure_winvm_name
-    admin_username = "tfadmin"
-    admin_password = "Password_123"
+    admin_username = var.azure_win_admin_username
+    admin_password = var.azure_win_admin_password
   }
   os_profile_windows_config {
     timezone                  = "GMT Standard Time"
