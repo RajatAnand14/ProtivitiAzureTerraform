@@ -5,7 +5,7 @@ on:
     branches:
     - "development"
     paths:
-     - 'infrastructure/**'
+     - 'Infrastructure/**'
   pull_request:
 
 permissions:
@@ -34,7 +34,7 @@ jobs:
         
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Create Infrastructure
-      working-directory: ./infrastructure
+      working-directory: ./Infrastructure
       run: |
         terraform init
         terraform validate
