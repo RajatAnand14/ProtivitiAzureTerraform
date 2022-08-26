@@ -37,6 +37,7 @@ jobs:
     - name: Terraform Create Infrastructure
       working-directory: ./Infrastructure
       run: |
+        az account set --subscription ${{ secrets.ARM_SUBSCRIPTION_ID }}
         terraform init
         terraform validate
         terraform plan -out "infra.tfplan"
