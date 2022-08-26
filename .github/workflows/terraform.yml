@@ -24,6 +24,8 @@ jobs:
       uses: azure/login@v1
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
+    - run: |
+        az account subscription list
         
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
