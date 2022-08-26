@@ -18,15 +18,14 @@ jobs:
     defaults:
       run:
         shell: bash
-
-    steps:
-    - name: Log in with Azure
-      uses: azure/login@v1
-      with:
-        creds: '${{ secrets.AZURE_CREDENTIALS }}'
-    - run: |
-        Get-AzureSubscription
         
+    env:
+      ARM_CLIENT_ID='${{ secrets.ARM_CLIENT_ID }}'
+      ARM_CLIENT_SECRET='${{ secrets.ARM_CLIENT_SECRET }}'
+      ARM_TENANT_ID='${{ secrets.ARM_TENANT_ID }}'
+      ARM_SUBSCRIPTION_ID='${{ secrets.ARM_SUBSCRIPTION_ID }}'
+      
+    steps:        
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3
@@ -38,10 +37,6 @@ jobs:
     - name: Terraform Create Infrastructure
       working-directory: ./Infrastructure
       run: |
-        export ARM_CLIENT_ID='${{ secrets.ARM_CLIENT_ID }}'
-        export ARM_CLIENT_SECRET='${{ secrets.ARM_CLIENT_SECRET }}'
-        export ARM_TENANT_ID='${{ secrets.ARM_TENANT_ID }}'
-        export ARM_SUBSCRIPTION_ID='${{ secrets.ARM_SUBSCRIPTION_ID }}'
         terraform init
         terraform validate
         terraform plan -out "infra.tfplan"
