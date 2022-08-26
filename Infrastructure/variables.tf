@@ -136,7 +136,7 @@ variable "azure_win_admin_username" {
 variable "azure_win_admin_password" {
   description = "Azure Windows Admin Password"
   type    = string
-  default = "Password_1234"
+  default = "Password_123"
 }
 
 ### Linux Input variables ######

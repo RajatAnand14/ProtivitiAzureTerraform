@@ -25,7 +25,7 @@ jobs:
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
     - run: |
-        az account subscription list
+        Get-AzureSubscription
         
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
