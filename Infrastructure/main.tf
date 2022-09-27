@@ -115,17 +115,6 @@ resource "azurerm_network_security_group" "azurensg" {
     source_address_prefix      = var.source_address_prefix
     destination_address_prefix = "*"
   }
-  security_rule {
-    name                       = "TCPSMTP1"
-    priority                   = 600
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "587"
-    source_address_prefix      = var.source_address_prefix
-    destination_address_prefix = "*"
-  }
 }
 
 resource "azurerm_subnet_network_security_group_association" "azuresubnetnsg" {

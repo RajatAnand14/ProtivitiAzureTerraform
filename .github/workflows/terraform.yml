@@ -48,7 +48,7 @@ jobs:
     
     - name: SSH Linux Server
       shell: bash
-      env:
+      with:
         SSH_USER: ${{ SSH_USER }}
         SSH_KEY: ${{ SSH_KEY }}
         SSH_HOST: ${{ SSH_HOST }}
