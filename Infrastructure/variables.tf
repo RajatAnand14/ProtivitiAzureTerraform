@@ -56,7 +56,7 @@ variable "azure_windows_public_ip" {
 variable "azure_public_ip_allocation" {
   description = "Azure Public IP Allocation"
   type    = string
-  default = "Dynamic"
+  default = "Static"
 }
 
 variable "azure_windows_nic" {
@@ -78,10 +78,21 @@ variable "azure_privateip_address_alloc" {
   default = "Dynamic"
 }
 
+
+variable "source_address_prefix" {
+  description = "Source Machine External IP V4 Address"
+  type = string
+  default = "73.168.172.43"
+}
+
+####################################################
+# INPUT VARIABLES FOR AZURE WINDOWS VM
+###################################################
+
 variable "azure_winvm_name" {
   description = "Azure Windows Vm Name"
   type    = string
-  default = "TerraformWinVM"
+  default = "tf-win-vm-001"
 }
 
 variable "azure_winvm_size" {
@@ -127,19 +138,11 @@ variable "azure_winvm_server_osdisktype" {
   default = "StandardSSD_LRS"
 }
 
-variable "azure_win_admin_username" {
-  description = "Azure Windows Admin User Name"
-  type    = string
-  default = "tfadmin"
-}
 
-variable "azure_win_admin_password" {
-  description = "Azure Windows Admin Password"
-  type    = string
-  default = "Password_123"
-}
+####################################################
+# INPUT VARIABLES FOR AZURE LINUX VM
+###################################################
 
-### Linux Input variables ######
 variable "azure_linux_nic" {
   description = "Azure Network Interface"
   type    = string
@@ -147,15 +150,15 @@ variable "azure_linux_nic" {
 }
 
 variable "azure_linuxvm_name" {
-  description = "Azure Windows Vm Name"
+  description = "Azure Linux Vm Name"
   type    = string
-  default = "TerraformLinuxVM"
+  default = "tf-linux-vm-001"
 }
 
 variable "azure_linuxvm_size" {
   description = "Azure Linux Vm Size"
   type    = string
-  default = "Standard_D2s_v3"
+  default = "Standard_D4as_v4"
 }
 
 variable "azure_linuxvm_publisher" {
@@ -200,15 +203,63 @@ variable "azure_linux_public_ip" {
   default = "TerraformLinuxPublicIP"
 }
 
-variable "azure_linux_admin_username" {
-  description = "Azure Linux Admin User Name"
+variable "azure_linux_srv_username" {
+  description = "Azure Linux Server User Name"
   type    = string
-  default = "tfadmin"
+  default = "root"
 }
 
 
+####################################################
+# INPUT VARIABLES FOR AZURE KEY VAULT
+###################################################
+variable "azure_keyvault_name" {
+  description = "Azure Key Vault Name"
+  type    = string
+  default = "ProtivitiTFKeyVault"
+}
 
+variable "azure_keyvault_sku" {
+  description = "Azure Key Vault SKU Type"
+  type    = string
+  default = "standard"
+}
 
+####################################################
+# INPUT VARIABLES FOR AZURE STORAGE ACCOUNT
+###################################################
+variable "azure_storage_name" {
+  description = "Azure Storage Account Name"
+  type    = string
+  default = "TFStorageAccount1983"
+}
 
+variable "azure_storage_account_kind" {
+  description = "Azure Storage Account Kind"
+  type    = string
+  default = "StorageV2"
+}
 
+variable "azure_storage_account_tier" {
+  description = "Azure Storage Account Tier"
+  type    = string
+  default = "Standard"
+}
 
+variable "azure_storage_access_tier" {
+  description = "Azure Storage Account Access Tier"
+  type    = string
+  default = "Hot"
+}
+
+variable "azure_storage_replication_type" {
+  description = "Azure Storage Account Replication Type"
+  type    = string
+  default = "LRS"
+}
+
+variable "azure_storage_container_name" {
+  description = "Azure Storage Account Container Name"
+  type    = string
+  default = "tfstatecontainer1983"
+}

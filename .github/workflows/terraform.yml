@@ -41,4 +41,19 @@ jobs:
         terraform validate
         terraform plan -out "infra.tfplan"
         terraform apply "infra.tfplan"
-        terraform output -raw tls_private_key 
+        $SSH_USER = $(terraform output -raw linuxsrvusername)
+        $SSH_KEY = $(terraform output -raw tls_private_key)
+        $SSH_HOST = $(terraform output -raw linuxsrvpublicip)
+        $SRV_FQDN = $(terraform output -raw linuxsrvfqdn)
+    
+    - name: SSH Linux Server
+      shell: bash
+      env:
+        SSH_USER: ${{ SSH_USER }}
+        SSH_KEY: ${{ SSH_KEY }}
+        SSH_HOST: ${{ SSH_HOST }}
+        SRV_FQDN: ${{ SRV_FQDN }}
+      run: |
+        sudo -i
+        sudo apt-get update
+        sudo apt-get upgrade
