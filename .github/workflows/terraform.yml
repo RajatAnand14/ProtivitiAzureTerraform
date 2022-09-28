@@ -41,10 +41,10 @@ jobs:
         terraform validate
         terraform plan -out "infra.tfplan"
         terraform apply "infra.tfplan"
-        $SSH_USER = $(terraform output -raw linuxsrvusername)
-        $SSH_KEY = $(terraform output -raw tls_private_key)
-        $SSH_HOST = $(terraform output -raw linuxsrvpublicip)
-        $SRV_FQDN = $(terraform output -raw linuxsrvfqdn)
+        export SSH_USER = $(terraform output -raw linuxsrvusername)
+        export SSH_KEY = $(terraform output -raw tls_private_key)
+        export SSH_HOST = $(terraform output -raw linuxsrvpublicip)
+        export SRV_FQDN = $(terraform output -raw linuxsrvfqdn)
     
     - name: SSH Linux Server
       shell: bash
