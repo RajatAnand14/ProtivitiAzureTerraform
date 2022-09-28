@@ -49,10 +49,10 @@ jobs:
     - name: SSH Linux Server
       shell: bash
       env:
-        SSH_USER: ${{ SSH_USER }}
-        SSH_KEY: ${{ SSH_KEY }}
-        SSH_HOST: ${{ SSH_HOST }}
-        SRV_FQDN: ${{ SRV_FQDN }}
+        SSH_USER: ${SSH_USER }
+        SSH_KEY: ${SSH_KEY}
+        SSH_HOST: ${SSH_HOST}
+        SRV_FQDN: ${SRV_FQDN}
       run: |
         sudo -i
         sudo apt-get update
