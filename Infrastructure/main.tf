@@ -106,7 +106,7 @@ resource "azurerm_network_security_group" "azurensg" {
   }
   security_rule {
     name                       = "TCPSMTP"
-    priority                   = 500
+    priority                   = 600
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
